@@ -13,7 +13,7 @@ import MainLayout from "@/layouts/MainLayout"
 export default {
   computed: {
     layout() {
-      return this.$route.meta.layout + "-layout"; //this.$route.meta.layout;
+      return (this.$route.meta.layout || 'empty') + "-layout"; //this.$route.meta.layout;
     }
   },
   components: {
