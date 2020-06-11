@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('hiddenNav')">
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date }}</span>
+        <span class="black-text">{{ date | date('date-time') }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -41,27 +41,28 @@
 
 <script>
 export default {
-  data: () => ({
-    date: new Date(),
-    interval: null,
-    dropdown: null
-  }),
+  data: function() {
+    return {
+      date: new Date(),
+      interval: null,
+      dropdown: null
+    }
+  },
   methods: {
-    logout() {console.log("!Logout!")
-    this.$router.push("/login?message=logout")
+    logout() {
+      console.log("!Logout!")
+      this.$router.push("/login?message=logout")
     }
   },
   mounted() {
     this.interval = setInterval(() => {
       this.date = new Date()
     }, 1000)
-    // console.log(this.$refs);
     this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
       constrainWidth: true
     })
   },
   beforeDestroy() {
-    console.log("destroy")
     clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy();
